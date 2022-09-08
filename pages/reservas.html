@@ -7,10 +7,9 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>Travel Scope // Reservas</title>
         <link rel="shortcut icon" href="..\multimedia\images\viajar.PNG">
-
+        
         <!-- Link a mi JS  -->
-        <script defer src="../js/main-reservas.js"></script>
-        <script href="//cdn.jsdelivr.net/npm/sweetalert2@11" defer></script>
+        <script defer src="../js/main-reservas.js" type="module"></script>
 
         <!-- Meta keywords -->
         <meta name="keywords" content="Travel Scope, viajes, estadia, traslado, excursiones, destinos, micro, avion">
@@ -37,7 +36,7 @@
         <main class="main-scope">
                 <nav class="text-white navbar navbar-expand-lg navbar-light bg-dark">
                     <div class="container-fluid">
-                      <a class="navbar-brand text-white" href="index.html">Travel Scope</a>
+                      <a class="navbar-brand text-white" href="../index.html">Travel Scope</a>
                       <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                         <span class="navbar-toggler-icon"></span>
                       </button>
@@ -117,6 +116,8 @@
                         <li>Direccion: Calle falsa 123</li>
                     </ul>
                 </div> 
-        </footer> 
+        </footer>
+      <!-- NO FUNCIONA EL DIFER CON ESTA LIBRERIA -->
+        <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
     </body>
 </html>
