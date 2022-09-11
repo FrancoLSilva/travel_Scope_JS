@@ -1,46 +1,33 @@
+const btn = document.getElementById("btn-login")
+btn.addEventListener("click", (e)=>{
+    e.preventDefault();//default de form, refresca sino ponelo en un div
+    procesarLog()
+})
 
-programarBotonLog();
-
-function programarBotonLog()
-{
-    const btn = document.getElementById("btn-login")
-    btn.addEventListener("click", ()=>{
-    procesarLog();
-
-    })
-}
-
-
-function procesarLog()
-{
-    const username = document.getElementById("usernameBo").value;
-    const password = document.getElementById("passwordBo").value;
-
-    if(username===" " || password===" ")
-    {
-        alert("Debe rellenar los campos para acceder a la pagina")
+function procesarLog(){
+    let username = document.getElementById("usernameBo");
+    let password = document.getElementById("passwordBo");
+    if(username.value=="Backoffice22" && password.value=="1234")
+    {   
+        alert(`Bienvenido ${username.value} a TravelScope!`);
+        mostrarBackOffice(); 
+        username.value = ""
+        password.value = ""
+    } 
+    else{
+        alert("Datos invalidos");
     }
-
-    else
-    {
-        if(username=="Backoffice22" && password=="1234")
-        {   
-            mostrarBackOffice();
-            alert(`Bienvenido ${username} a TravelScope!`);
-            
-        } 
-        else{
-            alert("Datos invalidos");
-        }
-    }
-
 }
 
 function mostrarBackOffice(){
-    const containerBo=document.getElementById("backOffice-Container");
-    const nodoAltaServ=document.createElement("button")
-    nodoAltaServ.setAttribute("style","width:40px; height:20px; font-size:15px; color:white; background-color:black; border:white");
+    const containerBo = document.getElementById("backOffice-Container");
+    const nodoAltaServ = document.createElement("button")
+    //AGREGA UNA CLASE A nodoAltaServ
+    nodoAltaServ.classList.add("button-Style");
     const nodoConsultaServ=document.createElement("button")
+    //CONTROLA LA INFO DENTRO DEL BOTTON
+    nodoAltaServ.innerText = "Ver servicios!"
+    nodoConsultaServ.innerText = "Estoy vivo!"
     containerBo.appendChild(nodoAltaServ)
     containerBo.appendChild(nodoConsultaServ)
 }
@@ -62,7 +49,6 @@ function Servicios(fotoServicio, idServicio, nombreServicio, descripcionServicio
 
 }
 
-
 const viajes ={
     img: "multimedia/images/viaje-image.jpg",
     id: "V001",
@@ -83,7 +69,6 @@ const excursiones ={
     nombre: "Excursiones",
     description: "Tenemos disponibles las mejores opciones de traslado, ¡elegi la que mas te guste!",
 }
-
 
 const servicios = [viajes , hospedaje, excursiones] ;
 localStorage.setItem("Servicios", JSON.stringify(servicios));

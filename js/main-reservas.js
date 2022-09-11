@@ -1,17 +1,22 @@
-
-
 contenedorConsultas();
-validacionFormulario();
+const servicios = ["Traslado", "Alojamiento", "Media-pensión", "Guia-turistico"];
 
-function contenedorConsultas(){ ss
+const form= document.getElementById("form-reservas");
+    form.setAttribute("style","display:grid; justify-items: center; margin:20px;")//CREA UNA STYLE EN CSS CON ESTAS PROPIEDADES
+    form.addEventListener("submit", (e) =>{
+        e.preventDefault()//no refesca por submit
+        validacionFormulario(form)
+        console.log("MINISTERIO")
+    })
 
-    const nodoPresupuesto=document.getElementById("Presupuesto-reserv"); 
-        nodoPresupuesto.onclick= (operacion) => {
-            let destinoUsuario = prompt(`Ingrese su destino:
-                   Salta
-                   Jujuy
-                   Cordoba
-                   Mendoza`);
+function contenedorConsultas(){ 
+    const nodoPresupuesto = document.getElementById("Presupuesto-reserv"); 
+        nodoPresupuesto.onclick = () => {//PUSISTE UN PARAMERTO Q NUNCA VA A NINGUN LADO
+            let destinoUsuario = prompt(`Ingrese el numero de su destino:
+                    1 - Salta
+                    2 - Jujuy
+                    3 - Cordoba
+                    4 - Mendoza`);
 
             alert(`Su proximo destino es ${destinoUsuario}, complete los datos a continuacion para calcular su viaje`);
             let Numero1 = Number(prompt("Ingrese el numero de pasajeros"));
@@ -22,15 +27,13 @@ function contenedorConsultas(){ ss
             }
 
             else {
-                switch (operacion) {
-
+                switch (destinoUsuario) {
                     case 'Salta':
                         {
                             const resultadoSalta = (Numero1 * 5000) + (Numero2 * 500);
                             alert(`El valor aproximado de su viaje es: ${resultadoSalta}`);
                             break;
                         }
-
 
                     case 'Jujuy':
                         {
@@ -51,7 +54,6 @@ function contenedorConsultas(){ ss
                         alert(`El valor aproximado de su viaje es: ${resultadooMendoza}`);
                         break;
                     }
-
                     default:
                         {
                             alert("Usted no se va de viaje");
@@ -63,14 +65,11 @@ function contenedorConsultas(){ ss
         } ;
         
 
-    const nodoAdicional=document.getElementById("Adicionales-reserv");
+const nodoAdicional=document.getElementById("Adicionales-reserv");
         nodoAdicional.onclick= () => {
-            do {
                 let opciones = prompt(`¿Desea sumar servicios?
                                         1. Si
                                         2. No`);
-                const i = opciones;
-
                 switch (opciones) {
                     case "1":
                         sumarServicios();
@@ -88,100 +87,69 @@ function contenedorConsultas(){ ss
                             break;
                         }
                 }
+            
 
 
-            }
-            while (i >= 0 && i < 3);
-
-            const servicios = ["Traslado", "Alojamiento", "Media-pensión", "Guia-turistico"];
             function sumarServicios() {
                 const pedirservicios = prompt("Suma un servicio adicional: Excursiones, Fiestas, Piscina");
-                servicios.push(pedirservicios);
-                console.log(servicios);
-                alert(`Se ha sumado el siguiente servicio a su paquete: ${pedirservicios}`);
+                if(pedirservicios !== ""){
+                    servicios.push(pedirservicios);
+                    console.log(servicios);
+                    alert(`Se ha sumado el siguiente servicio a su paquete: ${pedirservicios}`);
+                }
             };
-
         }
         
 
     const nodoHoteles=document.getElementById("Hoteles-reserv");
-        nodoHoteles.onclick=  function hotelesDisponibles()
-        {   
-            let hotelbuscado= prompt("Ingrese el hotel que desea");
+        nodoHoteles.onclick =  function hotelesDisponibles(){   
+            let hotelbuscado = prompt(`Ingrese el hotel que desea - 
+                    Santa Rita 
+                    Las termas 
+                    San Ignacio 
+                    Gold Season`);
             const hoteles = ["Santa Rita","Las termas","San Ignacio","Gold Season"];
-            const busqueda= hoteles.find ((hotel)=> hotel.nombre.includes(hotelbuscado))
+            const busqueda = hoteles.find ((hotel)=> hotel.includes(hotelbuscado))
+            //estas haciendo un find para que?, no cumple funcion
             console.log(busqueda)
-        }
-        ; 
-        
-       
-
-        
- 
+        };
 }
 
-
-
-function validacionFormulario(){
-    const form= document.getElementById("form-reservas");
-        form.setAttribute("style","display:grid; justify-items: center; margin:20px;")
-          elementos= form.elements; 
-
-    const validarCampos = function(i){
-            validarNombre(i);
-            validarEmail(i);
-            validarTel(i);
-            validarDireccion(i);
+function validacionFormulario(value){
+    let informacion = []
+    for (let i = 0; i < form.length-1; i++) {
+        let registro = value[i].value;
+        if(registro == "" ){
+            alert("Debe completar todos los campos")
+            informacion = []
+            //si encuentra 1 que no este completada salta la alerta y reseta el array al comienzo
+            break;
+        }else{
+            informacion.push(registro)
         }
-          form.addEventListener("submit",validarCampos)
-
-
-    function validarNombre(i){
-        controlBotones(boton)
-    };
-
-    function validarEmail(i){
-        controlBotones(boton)
-    };
-
-    function validarTel(i){
-        controlBotones(boton)
-    };
-
-    function validarDireccion(i){
-        controlBotones(boton)
-    };
-
-    tocarBotones();
-
+    }
+    if(informacion.length == 6){
+        registroCompletado()
+    }
 }
 
-function controlBotones(boton)
-    {
-        if (boton === null)
-            {
-                alert("Debe completar todos los campos")
-            }
-
-    };
-
-function tocarBotones()
-{  const boton= document.getElementById("inputEnviar");
-    boton.onclick = () => {
+function registroCompletado(){
     Swal.fire({
-        position: 'top-end',
+        position: 'center',
         icon: 'success',
         title: 'Tu reserva a sido registrada',
         showConfirmButton: false,
         timer: 1500
     })
-}
-}
 
-  
+    //RESETIAR LOS CAMPOS
+    for (let i = 0; i < form.length-1; i++) {
+        form[i].value = ""
+    }
+
+}
 
 // backoffice
-
 function cargarDatosHabitacion(){
         const id = prompt("Ingrese el ID de su habitacion");
         const medida = prompt(" elija una medida");
@@ -190,17 +158,13 @@ function cargarDatosHabitacion(){
         console.log(hab1);
     };
     
-    
-            
-function Transporte(id,tipoDeTransporte,tipoDeAsiento){
+    function Transporte(id,tipoDeTransporte,tipoDeAsiento){
         this.id=id;
         this.tipoDeTransporte=tipoDeTransporte;
         this.tipoDeAsiento=tipoDeAsiento;
-        };
-            
+        };            
 
-function cargarDatosTransporte()
-    {
+function cargarDatosTransporte(){
         const id=prompt("Ingrese el ID de su transporte");
         const tipoDeTransporte=prompt("Ingrese el transporte que prefiere (Micro o Avion)");
         const tipoDeAsiento= prompt("Ingrese el tipo de asiento (Cama o Semi-cama)");
